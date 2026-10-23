@@ -1,0 +1,206 @@
+/* =========================================
+   base.css — Reset, typography, global utilities
+   ========================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Form elements inherit font */
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: var(--f-display);
+  margin: 0;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+img { max-width: 100%; }
+
+a { color: var(--accent); }
+
+/* Hidden */
+[hidden]:not([hidden="until-found" i]) { display: none !important; }
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- Utility classes ---- */
+.num  { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.sm-t  { font-size: 12.5px; }
+.bold  { font-weight: 600; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* ---- Pills / badges ---- */
+.pill {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 1px 9px;
+  border-radius: var(--r-pill);
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) 15%, transparent);
+  white-space: nowrap;
+}
+
+/* Semantic pill colours */
+.st-good  { --c: var(--good); }
+.st-warn  { --c: var(--warn); }
+.st-bad   { --c: var(--bad); }
+.st-acc   { --c: var(--accent); }
+.st-mute  { --c: var(--c5); }
+
+/* Segment colours */
+.s1 { --c: var(--c1); }
+.s2 { --c: var(--c2); }
+.s3 { --c: var(--c3); }
+.s4 { --c: var(--c4); }
+.s5 { --c: var(--c5); }
+
+/* ---- Avatar ---- */
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--surface2);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  flex: none;
+  color: var(--accent);
+  font-family: var(--f-display);
+}
+.avatar.lg { width: 44px; height: 44px; font-size: 18px; }
+
+/* ---- Progress bar ---- */
+.bar {
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--surface2);
+  overflow: hidden;
+  display: flex;
+}
+.bar span { display: block; height: 100%; }
+
+/* ---- Toast ---- */
+.toast {
+  position: fixed;
+  inset-inline: 0;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  margin: auto;
+  width: max-content;
+  max-width: 90%;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 9px 16px;
+  border-radius: var(--r-pill);
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-base);
+  z-index: 100;
+}
+.toast.on { opacity: 1; }
+
+/* ---- Legend ---- */
+.legend {
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.legend i {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  margin-inline-end: 5px;
+  vertical-align: -1px;
+}
+
+/* ---- Dot indicator ---- */
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--good);
+  display: inline-block;
+  margin-inline-end: 6px;
+}
+.dot.off { background: var(--muted); }
+
+/* ---- Loading skeleton pulse ---- */
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: .4; }
+}
+
+/* ---- Sched day label ---- */
+.sched-day { margin-bottom: 20px; }
+.sched-day-label {
+  font-weight: 600; font-size: 13px;
+  color: var(--accent);
+  padding: 4px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+/* ---- Kanban ---- */
+.kanban { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; }
+.kanban-col { min-width: 240px; flex: 1; }
+.kanban-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 12px; background: var(--surface2);
+  border-radius: 10px; margin-bottom: 10px; font-size: 13px;
+}
+.kanban-cards { display: flex; flex-direction: column; gap: 10px; }
+.kcard { cursor: default; }
+.kcard.late { border-right: 3px solid var(--danger); }
+.prog-bar {
+  height: 5px; background: var(--border); border-radius: 99px; overflow: hidden;
+}
+.prog-bar div { height: 100%; border-radius: 99px; transition: width .3s; }
+
+/* ---- Table filters ---- */
+.tb-filters {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  padding: 0 0 16px;
+}
+.seg-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ---- Chats filters bar ---- */
+.chats-filters .tab-chip { white-space: nowrap; }
+.tab-chip { padding: 5px 12px; border-radius: 99px; font-size: 13px; border: 1px solid var(--border); cursor: pointer; background: transparent; }
+.tab-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ---- Approvals ---- */
+.ap-wrap { display: flex; flex-direction: column; gap: 16px; }
+.ap-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.dim { opacity: .6; }

@@ -1,0 +1,41 @@
+# ── Python ─────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+backend/venv/
+env/
+
+# ── Database (local SQLite) ─────────────────────────────
+*.db
+*.sqlite3
+
+# ── Environment files (NEVER commit secrets) ───────────
+.env
+backend/.env
+!backend/.env.example
+
+# ── OS ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ───────────────────────────────────────────────
+*.log
+/tmp/
+
+# ── IDE ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ── Cloudflare / ngrok temp files ──────────────────────
+cf.log
+ngrok.log

@@ -1,0 +1,120 @@
+/* =========================================
+   variables.css — Design tokens & CSS custom properties
+   ========================================= */
+
+:root {
+  /* Colors — Light mode */
+  --bg: #f2f5f3;
+  --surface: #ffffff;
+  --surface2: #e9eeeb;
+  --line: #d9e1dd;
+  --fg: #14201b;
+  --muted: #5b6b64;
+  --accent: #0d7a6b;
+  --accent-soft: #d3eee8;
+  --accent-fg: #ffffff;
+
+  --good: #2f7d32;
+  --good-soft: #dcefdc;
+  --warn: #8a5a00;
+  --warn-soft: #fbe9c9;
+  --bad: #b3261e;
+  --bad-soft: #f9dcd9;
+
+  --c1: #2563a8;
+  --c2: #8a5a00;
+  --c3: #0d7a4f;
+  --c4: #6b4bb0;
+  --c5: #6b7a73;
+
+  /* Typography */
+  --f-display: "Readex Pro", "IBM Plex Sans Arabic", Tahoma, sans-serif;
+  --f-body: "IBM Plex Sans Arabic", Tahoma, "Segoe UI", sans-serif;
+
+  /* Spacing scale */
+  --sp-xs: 4px;
+  --sp-sm: 8px;
+  --sp-md: 12px;
+  --sp-lg: 16px;
+  --sp-xl: 24px;
+  --sp-2xl: 32px;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 10px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-pill: 99px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Transitions */
+  --t-fast: 0.12s ease;
+  --t-base: 0.2s ease;
+
+  color-scheme: light;
+}
+
+/* Dark mode — system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1512;
+    --surface: #141f1b;
+    --surface2: #1b2923;
+    --line: #26362f;
+    --fg: #e6efea;
+    --muted: #93a69d;
+    --accent: #3cc9a8;
+    --accent-soft: #12372f;
+    --accent-fg: #07140f;
+
+    --good: #6fd08a;
+    --good-soft: #16321f;
+    --warn: #f0b04a;
+    --warn-soft: #3a2c10;
+    --bad: #ff8a80;
+    --bad-soft: #3e1a18;
+
+    --c1: #7fb2f0;
+    --c2: #f0b04a;
+    --c3: #5fd39a;
+    --c4: #b79cf0;
+    --c5: #93a69d;
+
+    color-scheme: dark;
+  }
+}
+
+/* Dark mode — manual toggle */
+:root[data-theme="dark"] {
+  --bg: #0d1512;
+  --surface: #141f1b;
+  --surface2: #1b2923;
+  --line: #26362f;
+  --fg: #e6efea;
+  --muted: #93a69d;
+  --accent: #3cc9a8;
+  --accent-soft: #12372f;
+  --accent-fg: #07140f;
+
+  --good: #6fd08a;
+  --good-soft: #16321f;
+  --warn: #f0b04a;
+  --warn-soft: #3a2c10;
+  --bad: #ff8a80;
+  --bad-soft: #3e1a18;
+
+  --c1: #7fb2f0;
+  --c2: #f0b04a;
+  --c3: #5fd39a;
+  --c4: #b79cf0;
+  --c5: #93a69d;
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
