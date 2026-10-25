@@ -2,8 +2,11 @@
  * config.js — App-wide constants and configuration
  */
 
+const isDevServer = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') &&
+  (window.location.port === '5500' || window.location.port === '3000');
+
 const CONFIG = Object.freeze({
-  API_BASE:              'http://localhost:8000/api/v1',
+  API_BASE:              isDevServer ? 'http://localhost:8000/api/v1' : '/api/v1',
   WA_PHONE:              '+20 100 555 0000',
   TG_BOT:                'YourBotUsername',
   FB_PAGE_ID:            '',          // Facebook Page ID — set in backend .env

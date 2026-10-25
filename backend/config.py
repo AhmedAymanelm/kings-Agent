@@ -12,6 +12,8 @@ _ROOT = _HERE.parent                   # project root
 _ENV  = _HERE / ".env" if (_HERE / ".env").exists() else _ROOT / ".env"
 
 
+import os
+
 class Settings(BaseSettings):
     # ── App ──────────────────────────────────────────────
     APP_NAME: str = "AI Agent Dashboard"
@@ -21,7 +23,11 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
 
     # ── Database ─────────────────────────────────────────
-    DATABASE_URL: str = "sqlite:///./elmloook.db"
+    DATABASE_URL: str = (
+        "sqlite:////tmp/elmloook.db"
+        if os.environ.get("VERCEL") and not os.environ.get("DATABASE_URL")
+        else "sqlite:///./elmloook.db"
+    )
 
     # ── AI Provider ───────────────────────────────────────
     AI_PROVIDER: str = "openai"
