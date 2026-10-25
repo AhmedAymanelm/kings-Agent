@@ -2,6 +2,7 @@
 config.py — App settings loaded from environment variables / .env file
 """
 from __future__ import annotations
+import os
 from pathlib import Path
 from pydantic_settings import BaseSettings
 from functools import lru_cache
@@ -9,10 +10,15 @@ from functools import lru_cache
 # Look for .env in backend/ first, then project root
 _HERE = Path(__file__).parent          # backend/
 _ROOT = _HERE.parent                   # project root
-_ENV  = _HERE / ".env" if (_HERE / ".env").exists() else _ROOT / ".env"
+_ENV_FILE = _HERE / ".env" if (_HERE / ".env").exists() else (_ROOT / ".env" if (_ROOT / ".env").exists() else None)
 
+def _get_default_db_url() -> str:
+    if os.environ.get("DATABASE_URL"):
+        return os.environ["DATABASE_URL"]
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME") or os.environ.get("LAMBDA_TASK_ROOT"):
+        return "sqlite:////tmp/elmloook.db"
+    return "sqlite:///./elmloook.db"
 
-import os
 
 class Settings(BaseSettings):
     # ── App ──────────────────────────────────────────────
@@ -23,11 +29,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
 
     # ── Database ─────────────────────────────────────────
-    DATABASE_URL: str = (
-        "sqlite:////tmp/elmloook.db"
-        if os.environ.get("VERCEL") and not os.environ.get("DATABASE_URL")
-        else "sqlite:///./elmloook.db"
-    )
+    DATABASE_URL: str = _get_default_db_url()
 
     # ── AI Provider ───────────────────────────────────────
     AI_PROVIDER: str = "openai"
@@ -74,8 +76,7 @@ class Settings(BaseSettings):
     ]
 
     model_config = {
-        "env_file": str(_ENV),
-        "env_file_encoding": "utf-8",
+        **({"env_file": str(_ENV_FILE), "env_file_encoding": "utf-8"} if _ENV_FILE else {}),
         "extra": "ignore",
     }
 

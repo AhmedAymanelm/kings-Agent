@@ -42,11 +42,14 @@ app.add_middleware(
 # ── Startup ────────────────────────────────────────────────────────────────
 @app.on_event("startup")
 def on_startup():
-    create_all_tables()
-    print(f"✅ {settings.APP_NAME} started")
-    print(f"   DB: {settings.DATABASE_URL[:40]}...")
-    if settings.TELEGRAM_BOT_TOKEN:
-        print(f"   🤖 Telegram: @{settings.TELEGRAM_BOT_USERNAME}")
+    try:
+        create_all_tables()
+        print(f"✅ {settings.APP_NAME} started")
+        print(f"   DB: {settings.DATABASE_URL[:40]}...")
+        if settings.TELEGRAM_BOT_TOKEN:
+            print(f"   🤖 Telegram: @{settings.TELEGRAM_BOT_USERNAME}")
+    except Exception as e:
+        print(f"⚠️ on_startup warning: {e}")
 
 
 # ── API Routers (/api/v1) ──────────────────────────────────────────────────
@@ -73,7 +76,7 @@ def health():
 # ── Serve frontend static files ────────────────────────────────────────────
 _FRONTEND = Path(__file__).parent.parent / "frontend"
 
-if _FRONTEND.exists():
+if _FRONTEND.exists() and (_FRONTEND / "css").is_dir() and (_FRONTEND / "js").is_dir():
     # Serve /css, /js, /assets etc.
     app.mount("/css",    StaticFiles(directory=_FRONTEND / "css"),    name="css")
     app.mount("/js",     StaticFiles(directory=_FRONTEND / "js"),     name="js")

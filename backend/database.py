@@ -33,4 +33,7 @@ def get_db():
 
 def create_all_tables():
     """Called once at startup to create missing tables."""
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print(f"⚠️ create_all_tables warning: {e}")
