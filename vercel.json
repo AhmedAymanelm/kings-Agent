@@ -7,6 +7,7 @@
     "backend": {
       "root": ".",
       "framework": "fastapi",
+      "runtime": "python3.12",
       "entrypoint": "api/index.py"
     }
   },
